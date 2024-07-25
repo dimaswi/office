@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Models\Surat;
 use App\Models\User;
+use App\Models\Surat;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class SuratPolicy
@@ -21,7 +21,7 @@ class SuratPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Surat $Surat): bool
+    public function view(User $user, Surat $surat): bool
     {
         return $user->can('view_surat');
     }
@@ -37,7 +37,7 @@ class SuratPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Surat $Surat): bool
+    public function update(User $user, Surat $surat): bool
     {
         return $user->can('update_surat');
     }
@@ -45,7 +45,7 @@ class SuratPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Surat $Surat): bool
+    public function delete(User $user, Surat $surat): bool
     {
         return $user->can('delete_surat');
     }
@@ -61,7 +61,7 @@ class SuratPolicy
     /**
      * Determine whether the user can permanently delete.
      */
-    public function forceDelete(User $user, Surat $Surat): bool
+    public function forceDelete(User $user, Surat $surat): bool
     {
         return $user->can('force_delete_surat');
     }
@@ -77,7 +77,7 @@ class SuratPolicy
     /**
      * Determine whether the user can restore.
      */
-    public function restore(User $user, Surat $Surat): bool
+    public function restore(User $user, Surat $surat): bool
     {
         return $user->can('restore_surat');
     }
@@ -93,7 +93,7 @@ class SuratPolicy
     /**
      * Determine whether the user can replicate.
      */
-    public function replicate(User $user, Surat $Surat): bool
+    public function replicate(User $user, Surat $surat): bool
     {
         return $user->can('replicate_surat');
     }

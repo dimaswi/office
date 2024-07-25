@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Models\Keluar;
 use App\Models\User;
+use App\Models\Keluar;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class KeluarPolicy
@@ -21,7 +21,7 @@ class KeluarPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Keluar $Keluar): bool
+    public function view(User $user, Keluar $keluar): bool
     {
         return $user->can('view_keluar');
     }
@@ -37,7 +37,7 @@ class KeluarPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Keluar $Keluar): bool
+    public function update(User $user, Keluar $keluar): bool
     {
         return $user->can('update_keluar');
     }
@@ -45,7 +45,7 @@ class KeluarPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Keluar $Keluar): bool
+    public function delete(User $user, Keluar $keluar): bool
     {
         return $user->can('delete_keluar');
     }
@@ -61,7 +61,7 @@ class KeluarPolicy
     /**
      * Determine whether the user can permanently delete.
      */
-    public function forceDelete(User $user, Keluar $Keluar): bool
+    public function forceDelete(User $user, Keluar $keluar): bool
     {
         return $user->can('force_delete_keluar');
     }
@@ -77,7 +77,7 @@ class KeluarPolicy
     /**
      * Determine whether the user can restore.
      */
-    public function restore(User $user, Keluar $Keluar): bool
+    public function restore(User $user, Keluar $keluar): bool
     {
         return $user->can('restore_keluar');
     }
@@ -93,7 +93,7 @@ class KeluarPolicy
     /**
      * Determine whether the user can replicate.
      */
-    public function replicate(User $user, Keluar $Keluar): bool
+    public function replicate(User $user, Keluar $keluar): bool
     {
         return $user->can('replicate_keluar');
     }

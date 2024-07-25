@@ -35,7 +35,7 @@ class RapatResource extends Resource
 
     protected static ?string $navigationLabel = 'Rapat';
 
-    protected static ?string $navigationGroup = 'Admin';
+    protected static ?string $navigationGroup = 'Rapat';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 

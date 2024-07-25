@@ -21,7 +21,7 @@ class MasukPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Masuk $Masuk): bool
+    public function view(User $user, Masuk $masuk): bool
     {
         return $user->can('view_masuk');
     }
@@ -37,7 +37,7 @@ class MasukPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Masuk $Masuk): bool
+    public function update(User $user, Masuk $masuk): bool
     {
         return $user->can('update_masuk');
     }
@@ -45,7 +45,7 @@ class MasukPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Masuk $Masuk): bool
+    public function delete(User $user, Masuk $masuk): bool
     {
         return $user->can('delete_masuk');
     }
@@ -61,7 +61,7 @@ class MasukPolicy
     /**
      * Determine whether the user can permanently delete.
      */
-    public function forceDelete(User $user, Masuk $Masuk): bool
+    public function forceDelete(User $user, Masuk $masuk): bool
     {
         return $user->can('force_delete_masuk');
     }
@@ -77,7 +77,7 @@ class MasukPolicy
     /**
      * Determine whether the user can restore.
      */
-    public function restore(User $user, Masuk $Masuk): bool
+    public function restore(User $user, Masuk $masuk): bool
     {
         return $user->can('restore_masuk');
     }
@@ -93,7 +93,7 @@ class MasukPolicy
     /**
      * Determine whether the user can replicate.
      */
-    public function replicate(User $user, Masuk $Masuk): bool
+    public function replicate(User $user, Masuk $masuk): bool
     {
         return $user->can('replicate_masuk');
     }
