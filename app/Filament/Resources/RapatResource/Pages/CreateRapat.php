@@ -31,7 +31,7 @@ class CreateRapat extends CreateRecord
             Notification::make()
             ->title('Rapat Baru Ditambahkan')
             ->success()
-            ->body(auth()->user()->name. ' Menambahkan rapat pada hari '. $jam_rapat)
+            ->body(auth()->user()->name. ' mengundang anda rapat pada hari '. $jam_rapat)
             ->sendToDatabase($user)
             // ->broadcast(User::role('Logistik')->get())
             ->toDatabase();

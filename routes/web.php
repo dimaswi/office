@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Rapat\HasilRapatController;
 use App\Http\Controllers\Rapat\UndanganRapatController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,3 +20,4 @@ Route::get('/', function () {
 });
 
 Route::get('rapat/undangan/{rapat}', UndanganRapatController::class)->name('rapat.undangan');
+Route::get('rapat/hasil/{rapat}', HasilRapatController::class)->name('rapat.hasil');

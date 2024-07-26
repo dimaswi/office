@@ -29,6 +29,7 @@ class Rapat extends Model
         'ends_at',
         'dokumentasi',
         'catatan',
+        'keputusan_rapat',
     ];
 
     protected $casts = [

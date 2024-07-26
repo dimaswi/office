@@ -164,6 +164,7 @@ class RapatResource extends Resource
                     TextEntry::make('pimpinan.name')->label('Pimpinan Rapat'),
                     TextEntry::make('tempat_rapat')->label('Tempat Rapat'),
                     TextEntry::make('agenda_rapat')->label('Agenda Rapat'),
+                    TextEntry::make('keputusan_rapat')->label('Keputusan Rapat')->columnSpanFull(),
                 ])->columns(2),
 
         ]);
