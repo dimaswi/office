@@ -12,8 +12,10 @@ use Filament\Forms;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\TimePicker;
 use Filament\Forms\Form;
@@ -37,7 +39,7 @@ class RapatResource extends Resource
 
     protected static ?string $navigationGroup = 'Rapat';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
     public static function form(Form $form): Form
     {
@@ -59,6 +61,7 @@ class RapatResource extends Resource
             ->schema([
                 Card::make()->schema([
                     Hidden::make('nomor')->default($nomor),
+                    Hidden::make('unit_id')->default($unit->id),
                     TextInput::make('nomor_rapat')
                         ->readOnly()
                         ->default(str_pad($nomor, 2, '0', STR_PAD_LEFT) . '/' . $unit->kode_unit . '/' . Carbon::now('Asia/Jakarta')->format('m') . '/' . Carbon::now('Asia/Jakarta')->format('Y'))
@@ -109,6 +112,14 @@ class RapatResource extends Resource
                             User::all()->pluck('name', 'id')
                         )
                         ->columnSpanFull(),
+                    FileUpload::make('dokumentasi')
+                        ->columnSpanFull()
+                        ->image()
+                        ->imageEditor()
+                        ->disk('public')
+                        ->directory('dokumentasi_rapat')
+                        ->downloadable(),
+                    Textarea::make('catatan')->columnSpanFull(),
                 ])->columns(3)
             ]);
     }

@@ -8,6 +8,7 @@ use App\Models\Unit;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -36,8 +37,15 @@ class UnitResource extends Resource
                     TextInput::make('nama_unit')->required()->placeholder('Masukan Nama Unit'),
                     TextInput::make('kode_unit')->required()->placeholder('Masukan Kode Unit'),
                     Select::make('kepala_unit')->searchable()->relationship('kepala', 'id')->required()->options(
-                        User::where('jabatan', null)->pluck('name', 'id')
-                        )->columnSpanFull()
+                        User::all()->pluck('name', 'id')
+                        )->columnSpanFull(),
+                    FileUpload::make('kop')
+                        ->columnSpanFull()
+                        ->image()
+                        ->imageEditor()
+                        ->disk('public')
+                        ->directory('kop')
+                        ->downloadable(),
                 ])->columns(2)
             ]);
     }

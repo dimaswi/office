@@ -9,6 +9,7 @@ use App\Models\UndanganRapat;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
@@ -56,7 +57,7 @@ class Notulen extends Page implements HasForms, HasTable
             ->schema([
                 Card::make()
                     ->schema([
-                        TextInput::make('notulen')->required()->placeholder('Masukan Notulen')->default(''),
+                        Textarea::make('notulen')->required()->placeholder('Masukan Notulen')->default(''),
                     ])
             ])->statePath('data');
     }
@@ -79,6 +80,7 @@ class Notulen extends Page implements HasForms, HasTable
 
             ModelsNotulen::create([
                 'rapat_id' => $this->record->id,
+                'user_id' => auth()->user()->id,
                 'notulen' => $data['notulen'],
             ]);
 
@@ -100,7 +102,8 @@ class Notulen extends Page implements HasForms, HasTable
                 ModelsNotulen::where('rapat_id', $this->record->id)
             )
             ->columns([
-                TextColumn::make('rapat.agenda_rapat')->searchable()->sortable(),
+                TextColumn::make('penulis.name')->searchable()->sortable(),
+                // TextColumn::make('rapat.agenda_rapat')->searchable()->sortable(),
                 TextColumn::make('notulen')->searchable()->sortable()
             ])
             ->actions([

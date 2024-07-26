@@ -28,12 +28,13 @@ class ListKeluars extends ListRecords
 
     public function getTabs(): array
     {
-        $proses = Keluar::where('status', 0)->where('user', auth()->user()->id)->count();
-        $setuju = Keluar::where('status', 1)->where('user', auth()->user()->id)->count();
-        $revisi = Keluar::where('status', 2)->where('user', auth()->user()->id)->count();
+        $proses = Keluar::where('user', auth()->user()->id)->where('status', 0)->count();
+        $setuju = Keluar::where('user', auth()->user()->id)->where('status', 1)->count();
+        $revisi = Keluar::where('user', auth()->user()->id)->where('status', 2)->count();
+        // dd($revisi);
         $masuk = Keluar::where('status', 0)->count();
         $selesai = Keluar::where('status', 1)->count();
-        $revisi = Keluar::where('status', 2)->count();
+        $revisi_direktur = Keluar::where('status', 2)->count();
 
         if (auth()->user()->hasRole('Direktur')) {
             return [
@@ -44,7 +45,7 @@ class ListKeluars extends ListRecords
                 ->badge($selesai)
                 ->modifyQueryUsing(fn (Builder $query) => $query->where('status', 1)),
                 'revisi' => Tab::make('Revisi')
-                ->badge($revisi)
+                ->badge($revisi_direktur)
                 ->modifyQueryUsing(fn (Builder $query) => $query->where('status', 2)),
 
             ];

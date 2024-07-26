@@ -58,11 +58,13 @@ class OfficePanelProvider extends PanelProvider
             ->plugins([
                 \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
             ])->plugin(
-                FilamentFullCalendarPlugin::make()
-                    ->selectable()
-                    ->editable(),
+                FilamentFullCalendarPlugin::make(),
+                    // ->selectable()
+                    // ->editable(),
             )
             ->databaseNotifications()
-            ->databaseNotificationsPolling('30s');;
+            ->databaseNotificationsPolling('30s')
+            ->brandLogo(asset('images/logo/logo.png'))
+            ->favicon(asset('images/logo/logo.png'));
     }
 }

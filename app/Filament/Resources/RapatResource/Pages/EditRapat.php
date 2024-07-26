@@ -13,6 +13,7 @@ class EditRapat extends EditRecord
 
     protected function getHeaderActions(): array
     {
+        // dd($this->record);
         return [
             Actions\Action::make('Detail')->icon('heroicon-o-information-circle')->url(
                 function (Rapat $record) {

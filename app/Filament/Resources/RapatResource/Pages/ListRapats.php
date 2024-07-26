@@ -13,6 +13,7 @@ class ListRapats extends ListRecords
 
     protected function getHeaderWidgets(): array
     {
+        // dd($this->record);
         return [
             CalendarWidget::class
         ];

@@ -19,6 +19,7 @@ class Unit extends Model
         'nama_unit',
         'kode_unit',
         'kepala_unit',
+        'kop',
     ];
 
     public function kepala(): BelongsTo

@@ -85,4 +85,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Keluar::class);
     }
+
+    public function isiNotulen()
+    {
+        return $this->hasMany(Notulen::class);
+    }
 }

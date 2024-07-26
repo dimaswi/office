@@ -27,6 +27,12 @@ class Rapat extends Model
         'hari_rapat',
         'starts_at',
         'ends_at',
+        'dokumentasi',
+        'catatan',
+    ];
+
+    protected $casts = [
+        'starts_at' => 'datetime'
     ];
 
     public function users(): BelongsToMany

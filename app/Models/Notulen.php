@@ -14,11 +14,17 @@ class Notulen extends Model
 
     protected $fillable = [
         'rapat_id',
+        'user_id',
         'notulen',
     ];
 
     public function rapat(): BelongsTo
     {
         return $this->belongsTo(Rapat::class, 'rapat_id', 'id');
+    }
+
+    public function penulis()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
