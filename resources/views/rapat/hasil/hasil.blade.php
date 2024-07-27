@@ -16,8 +16,8 @@
     }
 
     .center {
-        margin-left: auto;
-        margin-right: auto;
+        margin-left: 10px;
+        margin-right: 10px;
     }
 
     .row_atas {
