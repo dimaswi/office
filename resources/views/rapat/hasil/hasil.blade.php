@@ -16,8 +16,8 @@
     }
 
     .center {
-        margin-left: 10px;
-        margin-right: 10px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .row_atas {
@@ -48,8 +48,8 @@
     </div>
 
 
-    <table class="center">
-        <tr>
+    <table class="center" style="width: 100%">
+        <tr style="padd">
             <td class="row_atas">Pembahasan Rapat</td>
             <td class="row_atas">:</td>
             <td class="row_atas">{{ $data_rapat->agenda_rapat }}</td>
@@ -116,7 +116,7 @@
 
     <br>
 
-    <table style="border: none" class="center">
+    <table style="border: none; width: 100%" class="center">
         <tr style="border: none">
             <td>&nbsp;</td>
             <td style="text-align: center">NOTULENSI RAPAT</td>
