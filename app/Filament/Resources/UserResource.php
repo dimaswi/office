@@ -35,7 +35,7 @@ class UserResource extends Resource
             ->schema([
                 Card::make()->schema([
                     TextInput::make('name')->required()->placeholder('Masukan Nama'),
-                    TextInput::make('nip')->required()->placeholder('Masukan NIP'),
+                    TextInput::make('nip')->label('NIP')->required()->placeholder('Masukan NIP'),
                     TextInput::make('password')->required()->password()->placeholder('Masukan Password')->dehydrateStateUsing(fn (string $state): string => Hash::make($state))->hiddenOn('edit'),
                     Select::make('jabatan')->options(Unit::all()->pluck('nama_unit', 'id'))->searchable(),
                     Select::make('unit')->options(
@@ -55,7 +55,7 @@ class UserResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')->searchable()->sortable(),
-                TextColumn::make('nip')->searchable()->sortable(),
+                TextColumn::make('nip')->label('NIP')->searchable()->sortable(),
                 TextColumn::make('password')->sortable()->badge()->limit(20),
                 TextColumn::make('kepala.nama_unit')->searchable()->sortable(),
                 TextColumn::make('unit_kerja.nama_unit')->searchable()->sortable(),
