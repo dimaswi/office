@@ -135,7 +135,7 @@
             <td style="vertical-align: top">
                 <ol>
                     @foreach ($undangan_rapat as $undangan)
-                        <li>Kepala {{ $undangan->name }}</li>
+                        <li>{{ $undangan->name }}</li>
                     @endforeach
                 </ol>
             </td>
