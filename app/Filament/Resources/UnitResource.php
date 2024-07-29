@@ -36,7 +36,7 @@ class UnitResource extends Resource
                 Card::make()->schema([
                     TextInput::make('nama_unit')->required()->placeholder('Masukan Nama Unit'),
                     TextInput::make('kode_unit')->required()->placeholder('Masukan Kode Unit'),
-                    Select::make('kepala_unit')->searchable()->relationship('kepala', 'id')->required()->options(
+                    Select::make('kepala_unit')->searchable()->required()->options(
                         User::all()->pluck('name', 'id')
                         )->columnSpanFull(),
                     FileUpload::make('kop')
