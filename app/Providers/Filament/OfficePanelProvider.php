@@ -63,6 +63,9 @@ class OfficePanelProvider extends PanelProvider
                     // ->selectable()
                     // ->editable(),
             )
+            ->resources([
+                config('filament-logger.activity_resource')
+            ])
             ->databaseNotifications()
             ->databaseNotificationsPolling('30s')
             ->brandLogo(asset('images/logo/logo.png'))

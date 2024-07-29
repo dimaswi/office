@@ -103,14 +103,13 @@
             <td class="row_atas" colspan="6">Keputusan Rapat</td>
         </tr>
         <tr>
-            <td class="row_atas">
+            <td colspan="6" class="row_atas">
                 <ol>
                     @foreach ($notulen as $isi_notulen)
                         <li>{{ $isi_notulen->notulen }}</li>
                     @endforeach
                 </ol>
             </td>
-            <td class="row_atas" colspan="5"></td>
         </tr>
     </table>
 
