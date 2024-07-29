@@ -24,7 +24,6 @@ class UndanganRapatController extends Controller
         $pimpinan_rapat = User::where('id', $rapat->user_id)->first();
         $undangan = DB::table('undangan_rapats')
                     ->join('users', 'users.id', '=', 'undangan_rapats.user_id')
-                    // ->join('units', 'units.id', '=', 'users.unit')
                     ->get();
         $kop_surat = base64_encode(file_get_contents(url('/images/'.$unit->kop)));
         $tanggal_rapat = $rapat->starts_at->isoFormat('dddd, D MMMM Y');
