@@ -57,7 +57,7 @@ class UserResource extends Resource
                 TextColumn::make('name')->searchable()->sortable(),
                 TextColumn::make('nip')->label('NIP')->searchable()->sortable(),
                 TextColumn::make('password')->sortable()->badge()->limit(20),
-                TextColumn::make('kepala.nama_unit')->searchable()->sortable(),
+                TextColumn::make('roles.name')->searchable()->badge(),
                 TextColumn::make('unit_kerja.nama_unit')->searchable()->sortable(),
             ])
             ->filters([
