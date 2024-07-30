@@ -34,7 +34,7 @@ class Notulen extends Page implements HasForms, HasTable
     use InteractsWithTable;
     use InteractsWithForms;
 
-    public ?array $data = [];
+    public ?array $data;
 
     protected static string $resource = RapatResource::class;
 
