@@ -29,6 +29,7 @@ class OfficePanelProvider extends PanelProvider
             ->id('office')
             ->path('office')
             ->login(Login::class)
+            ->sidebarCollapsibleOnDesktop()
             ->colors([
                 'primary' => Color::Indigo,
             ])

@@ -31,6 +31,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Joaopaulolndev\FilamentPdfViewer\Forms\Components\PdfViewerField;
 
 class MasukResource extends Resource
 {
@@ -67,10 +68,11 @@ class MasukResource extends Resource
                         TextInput::make('pengirim_surat')->required()->placeholder('Masukan Pengirim Surat'),
                         RichEditor::make('isi_surat')->required()->columnSpanFull(),
                         FileUpload::make('dokumen_surat')->required()
-                            ->directory('surat-masuk')
-                            ->storeFileNamesIn('original_filename')
+                            ->disk('public')
+                            ->directory('surat_masuk')
                             ->downloadable()
-                            ->columnSpanFull(),
+                            ->columnSpanFull()
+                            ->acceptedFileTypes(['application/pdf']),
                     ])->columns(2),
                 ])->columnSpanFull()
             ]);

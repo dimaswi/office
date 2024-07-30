@@ -13,6 +13,7 @@ use Filament\Forms\Components\Select;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ViewRecord;
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Storage;
 
 class ViewMasuk extends ViewRecord
@@ -35,7 +36,9 @@ class ViewMasuk extends ViewRecord
 
         if (!empty($check_disposisi)) {
             return [
-                Action::make('Download')->icon('heroicon-o-arrow-down-tray')->url(Storage::url($this->record->dokumen_surat)),
+                Action::make('PDF')->icon('heroicon-o-document')->label('Lihat')
+                    ->modalContent(fn (Masuk $record): View => view('filament.resources.masuk-resource.actions.pdf', ['record' => $record]))
+                    ->modalSubmitAction(false),
                 Action::make('Tindak Lanjut')->icon('heroicon-o-forward')->color('success')
                     ->form([
                         RichEditor::make('catatan')->required(),
@@ -79,7 +82,7 @@ class ViewMasuk extends ViewRecord
                                 ->send();
                         }
                     ),
-                    EditAction::make()->icon('heroicon-o-pencil-square')->color('warning'),
+                EditAction::make()->icon('heroicon-o-pencil-square')->color('warning'),
             ];
         } else {
             return [
@@ -102,7 +105,9 @@ class ViewMasuk extends ViewRecord
                         $record->save();
                     }),
                 EditAction::make()->icon('heroicon-o-pencil-square')->color('warning'),
-                Action::make('Download')->icon('heroicon-o-arrow-down-tray')->url(Storage::url($this->record->dokumen_surat))
+                Action::make('PDF')->icon('heroicon-o-document')->label('Lihat')
+                    ->modalContent(fn (Masuk $record): View => view('filament.resources.masuk-resource.actions.pdf', ['record' => $record]))
+                    ->modalSubmitAction(false),
             ];
         }
     }
