@@ -88,7 +88,7 @@ class Notulen extends Page implements HasForms, HasTable
                 ->success()
                 ->send();
 
-            $this->reset('data.notulen');
+            // $this->reset('data.notulen');
         } catch (Halt $exception) {
             return;
         }
