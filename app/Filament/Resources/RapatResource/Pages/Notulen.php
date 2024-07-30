@@ -34,7 +34,7 @@ class Notulen extends Page implements HasForms, HasTable
     use InteractsWithTable;
     use InteractsWithForms;
 
-    public ?array $data;
+    public ?array $data = [];
 
     protected static string $resource = RapatResource::class;
 
@@ -43,7 +43,6 @@ class Notulen extends Page implements HasForms, HasTable
     public function mount(int | string $record): void
     {
         $this->record = $this->resolveRecord($record);
-        $this->reset('data.notulen');
     }
 
     public function getTitle(): string|Htmlable
