@@ -75,6 +75,8 @@ class Notulen extends Page implements HasForms, HasTable
         try {
             $data = $this->form->getState();
 
+            // dd($data['notulen']);
+
             ModelsNotulen::create([
                 'rapat_id' => $this->record->id,
                 'user_id' => auth()->user()->id,
@@ -86,7 +88,7 @@ class Notulen extends Page implements HasForms, HasTable
                 ->success()
                 ->send();
 
-            $this->reset('data.notulen');
+            $this->form->fill();
         } catch (Halt $exception) {
             return;
         }
