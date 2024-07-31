@@ -21,6 +21,7 @@ class HasilRapatController extends Controller
         ->join('users', 'users.id', '=', 'undangan_rapats.user_id')
         ->join('units', 'units.id', '=', 'users.unit')
         ->where('undangan_rapats.status', 1)
+        ->where('undangan_rapats.rapat_id', $rapat->id)
         ->get();
         $kop_surat = base64_encode(file_get_contents(url('/images/'.$unit->kop)));
         $tanggal_rapat = $rapat->starts_at->isoFormat('dddd, D MMMM Y');
