@@ -94,7 +94,7 @@
     <div>
         <p>Demikian surat undangan ini kami buat, atas perhatian serta kerjasamanya kami sampaikan terima kasih.</p>
 
-        <i>Nasrum Minallahi Wa Fat-Hung Qarib</i>
+        <i>Nasrum Minallah Wa FatHun Qarib</i>
 
         <div>
             &nbsp;
