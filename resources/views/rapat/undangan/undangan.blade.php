@@ -27,7 +27,7 @@
         <tr>
             <td>Tanggal</td>
             <td>:</td>
-            <td>{{ $tanggal_rapat }}</td>
+            <td>{{ $tanggal_undangan }}</td>
         </tr>
         <tr>
             <td>Kepada Yth.</td>
@@ -84,7 +84,7 @@
             <td>Catatan</td>
             <td>:</td>
             @if ( $data_rapat->catatan != null )
-                <td>{{ $data_rapat->catatan_rapat }}</td>
+                <td>{{ $data_rapat->catatan }}</td>
             @else
                 <td> - </td>
             @endif
