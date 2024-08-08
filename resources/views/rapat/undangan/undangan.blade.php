@@ -84,7 +84,7 @@
             <td>Catatan</td>
             <td>:</td>
             @if ( $data_rapat->catatan != null )
-                <td>{{ $data_rapat->tempat_rapat }}</td>
+                <td>{{ $data_rapat->catatan_rapat }}</td>
             @else
                 <td> - </td>
             @endif

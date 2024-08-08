@@ -27,7 +27,7 @@ class UndanganRapatController extends Controller
                     ->where('undangan_rapats.rapat_id', $rapat->id)
                     ->get();
         $kop_surat = base64_encode(file_get_contents(url('/images/'.$unit->kop)));
-        $tanggal_rapat = $rapat->starts_at->isoFormat('dddd, D MMMM Y');
+        $tanggal_rapat = $rapat->created_at->isoFormat('dddd, D MMMM Y');
         $qrcode = base64_encode(QrCode::format('svg')->merge('images/logo/logo.png', 0.4, true)->size(80)->errorCorrection('H')->generate($pimpinan_rapat->name));
         // dd(url("images/".$unit->kop));
         // dd($undangan);
