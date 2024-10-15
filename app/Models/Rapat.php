@@ -32,9 +32,10 @@ class Rapat extends Model
         'keputusan_rapat',
     ];
 
-    protected $casts = [
-        'starts_at' => 'datetime'
-    ];
+    // protected $casts = [
+    //     'starts_at' => 'datetime',
+    //     'ends_at' => 'datetime'
+    // ];
 
     public function users(): BelongsToMany
     {

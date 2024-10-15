@@ -18,6 +18,23 @@ class CreateRapat extends CreateRecord
 {
     protected static string $resource = RapatResource::class;
 
+    protected function beforeCreate(): void
+    {
+        $start = Carbon::parse($this->data['starts_at'])->format('Y-m-d H:i:s');
+        $end = Carbon::parse($this->data['ends_at'])->format('Y-m-d H:i:s');
+        $jam_awal_dibooking = Rapat::whereBetween('starts_at', [$start, $end])->get();
+        $jam_akhir_dibooking = Rapat::whereBetween('ends_at', [$start, $end])->get();
+
+        if ($jam_awal_dibooking->count() > 0 or $jam_akhir_dibooking->count() > 0) {
+            Notification::make()
+                ->title('Jam rapat bertabrakan dengan rapat lain')
+                ->danger()
+                ->send();
+
+            $this->halt();
+        }
+    }
+
     protected function getRedirectUrl(): string
     {
         setlocale(LC_TIME, 'id_ID');
@@ -29,12 +46,12 @@ class CreateRapat extends CreateRecord
         foreach ($undangan_rapat as $undangan) {
             $user = User::where('id', $undangan->user_id)->first();
             Notification::make()
-            ->title('Rapat Baru Ditambahkan')
-            ->success()
-            ->body(auth()->user()->name. ' mengundang anda rapat pada hari '. $jam_rapat)
-            ->sendToDatabase($user)
-            // ->broadcast(User::role('Logistik')->get())
-            ->toDatabase();
+                ->title('Rapat Baru Ditambahkan')
+                ->success()
+                ->body(auth()->user()->name . ' mengundang anda rapat pada hari ' . $jam_rapat)
+                ->sendToDatabase($user)
+                // ->broadcast(User::role('Logistik')->get())
+                ->toDatabase();
         }
 
         return $this->getResource()::getUrl('index');

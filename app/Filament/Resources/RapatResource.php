@@ -100,9 +100,11 @@ class RapatResource extends Resource
                         ->required(),
                     DateTimePicker::make('starts_at')
                         ->label('Mulai Rapat')
+                        ->format('Y-m-d H:i:s')
                         ->required(),
-                    DateTimePicker::make('ends_at')
+                        DateTimePicker::make('ends_at')
                         ->label('Selesai Rapat')
+                        ->format('Y-m-d H:i:s')
                         ->required(),
                     Select::make('users')->label('Undangan')
                         ->relationship('users', 'name')
