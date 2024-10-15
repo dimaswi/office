@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Rapat;
 
 use App\Http\Controllers\Controller;
 use App\Models\Rapat;
+use App\Models\RuangRapat;
 use App\Models\UndanganRapat;
 use App\Models\Unit;
 use App\Models\User;
@@ -26,6 +27,7 @@ class UndanganRapatController extends Controller
                     ->join('users', 'users.id', '=', 'undangan_rapats.user_id')
                     ->where('undangan_rapats.rapat_id', $rapat->id)
                     ->get();
+        $tempat_rapat = RuangRapat::where('id', $rapat->tempat_rapat)->first();
         $kop_surat = base64_encode(file_get_contents(url('/images/'.$unit->kop)));
         $tanggal_undangan = $rapat->created_at->isoFormat('dddd, D MMMM Y');
         $tanggal_rapat = $rapat->starts_at->isoFormat('dddd, D MMMM Y');
@@ -44,6 +46,7 @@ class UndanganRapatController extends Controller
         ])
         ->loadView('rapat.undangan.undangan',
         [
+            'tempat_rapat' => $tempat_rapat,
             'data_rapat' => $rapat,
             'data_unit' => $unit,
             'undangan_rapat' => $undangan,

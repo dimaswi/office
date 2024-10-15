@@ -71,7 +71,7 @@
         <tr>
             <td>Tempat</td>
             <td>:</td>
-            <td>{{ $data_rapat->tempat_rapat }}</td>
+            <td>{{ $tempat_rapat }}</td>
         </tr>
 
         <tr>
