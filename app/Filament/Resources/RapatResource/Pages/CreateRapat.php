@@ -4,6 +4,7 @@ namespace App\Filament\Resources\RapatResource\Pages;
 
 use App\Filament\Resources\RapatResource;
 use App\Models\Rapat;
+use App\Models\RuangRapat;
 use App\Models\UndanganRapat;
 use App\Models\User;
 use Carbon\Carbon;
@@ -22,17 +23,47 @@ class CreateRapat extends CreateRecord
     {
         $start = Carbon::parse($this->data['starts_at'])->format('Y-m-d H:i:s');
         $end = Carbon::parse($this->data['ends_at'])->format('Y-m-d H:i:s');
-        $jam_awal_dibooking = Rapat::whereBetween('starts_at', [$start, $end])->get();
-        $jam_akhir_dibooking = Rapat::whereBetween('ends_at', [$start, $end])->get();
+        $rapat = Rapat::whereDate('starts_at', '>=', $start)->whereDate('ends_at', '<=', $end)->first();
+        $tempat_rapat_dibooking = RuangRapat::where('id', $this->data['tempat_rapat'])->first();
 
-        if ($jam_awal_dibooking->count() > 0 or $jam_akhir_dibooking->count() > 0) {
-            Notification::make()
-                ->title('Jam rapat bertabrakan dengan rapat lain')
-                ->danger()
-                ->send();
+        // dd(!empty($jam));
 
-            $this->halt();
+        if (empty($jam)) {
+            if ($rapat->tempat_rapat == $this->data['tempat_rapat']) {
+                Notification::make()
+                    ->title($tempat_rapat_dibooking->nama_ruang .' sudah dipakai!')
+                    ->danger()
+                    ->send();
+
+                $this->halt();
+            }
         }
+
+        if (!empty($jam)) {
+            if ($rapat->tempat_rapat == $this->data['tempat_rapat']) {
+                Notification::make()
+                    ->title($tempat_rapat_dibooking->nama_ruang .' sudah dipakai!')
+                    ->danger()
+                    ->send();
+
+                $this->halt();
+            }
+        }
+
+        // $jam_awal_dibooking = Rapat::whereBetween('starts_at', [$start, $end])->first();
+        // $jam_akhir_dibooking = Rapat::whereBetween('ends_at', [$start, $end])->first();
+        // dd($jam_awal_dibooking != null or $jam_akhir_dibooking != null);
+        // if ($jam_awal_dibooking != null or $jam_akhir_dibooking != null) {
+        //     dd($jam_awal_dibooking, $jam_akhir_dibooking);
+        //     if ($jam_awal_dibooking->tempat_rapat == $this->data['tempat_rapat']  or $jam_akhir_dibooking->tempat_rapat == $this->data['tempat_rapat']) {
+        //         Notification::make()
+        //             ->title($tempat_rapat_dibooking->nama_ruang . ' sudah dipakai untuk rapat lainnya!')
+        //             ->danger()
+        //             ->send();
+
+        //         $this->halt();
+        //     }
+        // }
     }
 
     protected function getRedirectUrl(): string

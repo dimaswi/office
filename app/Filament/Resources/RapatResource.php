@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\RapatResource\Pages;
 use App\Filament\Resources\RapatResource\RelationManagers;
 use App\Models\Rapat;
+use App\Models\RuangRapat;
 use App\Models\Unit;
 use App\Models\User;
 use Carbon\Carbon;
@@ -79,8 +80,11 @@ class RapatResource extends Resource
                         ->placeholder('Masukan Agenda Rapat')
                         ->required()
                         ->columnSpan(2),
-                    TextInput::make('tempat_rapat')
-                        ->placeholder('Masukan Lokasi Rapat')
+                    Select::make('tempat_rapat')
+                        ->options(
+                            RuangRapat::all()->pluck('nama_ruang', 'id')
+                        )
+                        ->searchable()
                         ->required(),
                     DatePicker::make('tanggal_rapat')
                         ->required()
@@ -102,7 +106,7 @@ class RapatResource extends Resource
                         ->label('Mulai Rapat')
                         ->format('Y-m-d H:i:s')
                         ->required(),
-                        DateTimePicker::make('ends_at')
+                    DateTimePicker::make('ends_at')
                         ->label('Selesai Rapat')
                         ->format('Y-m-d H:i:s')
                         ->required(),

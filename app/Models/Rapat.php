@@ -32,10 +32,10 @@ class Rapat extends Model
         'keputusan_rapat',
     ];
 
-    // protected $casts = [
-    //     'starts_at' => 'datetime',
-    //     'ends_at' => 'datetime'
-    // ];
+    protected $casts = [
+        'starts_at' => 'datetime',
+        'ends_at' => 'datetime'
+    ];
 
     public function users(): BelongsToMany
     {
@@ -50,6 +50,11 @@ class Rapat extends Model
     public function unit(): BelongsTo
     {
         return $this->belongsTo(Unit::class, 'unit_id', 'id');
+    }
+
+    public function ruang(): BelongsTo
+    {
+        return $this->belongsTo(RuangRapat::class, 'tempat_rapat', 'id');
     }
 
     public function notulen(): HasMany
