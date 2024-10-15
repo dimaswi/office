@@ -66,7 +66,7 @@
         <tr>
             <td class="row_atas">Tempat Rapat</td>
             <td class="row_atas">:</td>
-            <td class="row_atas">{{ $tempat_rapat }}</td>
+            <td class="row_atas">{{ $tempat_rapat->nama_ruang }}</td>
             <td class="row_atas" colspan="3"></td>
         </tr>
         <tr>
