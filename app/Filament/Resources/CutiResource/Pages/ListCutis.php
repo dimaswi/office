@@ -28,59 +28,64 @@ class ListCutis extends ListRecords
 
     public function getTabs(): array
     {
-        $unit = Unit::where('id', auth()->user()->unit)->first();
-        $bagian = Bagian::where('id', $unit->bagian)->first();
-        if (auth()->user()->hasRole('Kepala Unit') and auth()->user()->hasRole('Verifikator Cuti')) {
+
+        if (!empty(auth()->user()->unit)) {
+            $unit = Unit::where('id', auth()->user()->unit)->first();
+            $bagian = Bagian::where('id', $unit->bagian)->first();
+        }
+
+        // dd($bagian);
+        if (auth()->user()->hasRole('Kepala Unit')) {
             return [
                 'kepala_unit' => Tab::make()
-                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 4)->where('kepala_unit', auth()->user()->unit))->badge(Cuti::query()->where('status', 4)->where('kepala_unit', auth()->user()->unit)->count())->badgeColor('info'),
+                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 1)->where('kepala_unit', auth()->user()->unit))->badge(Cuti::query()->where('status', 1)->where('kepala_unit', auth()->user()->unit)->count())->badgeColor('info'),
                 'draft' => Tab::make()
-                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 0))->badge(Cuti::query()->where('status', 0)->where('karyawan', auth()->user()->id)->count())->badgeColor('info'),
+                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 0)->where('karyawan', auth()->user()->id))->badge(Cuti::query()->where('status', 0)->where('karyawan', auth()->user()->id)->count())->badgeColor('info'),
                 'review kabag' => Tab::make()
-                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 5))->badge(Cuti::query()->where('status', 5)->where('karyawan', auth()->user()->id)->count())->badgeColor('info'),
+                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 2)->where('karyawan', auth()->user()->id))->badge(Cuti::query()->where('status', 2)->where('karyawan', auth()->user()->id)->count())->badgeColor('info'),
                 'pengajuan' => Tab::make()
-                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 1))->badge(Cuti::query()->where('status', 1)->where('karyawan', auth()->user()->id)->count())->badgeColor('warning'),
+                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 3)->where('karyawan', auth()->user()->id))->badge(Cuti::query()->where('status', 3)->where('karyawan', auth()->user()->id)->count())->badgeColor('warning'),
                 'setujui' => Tab::make()
-                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 2))->badge(Cuti::query()->where('status', 2)->where('karyawan', auth()->user()->id)->count())->badgeColor('success'),
+                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 100)->where('karyawan', auth()->user()->id))->badge(Cuti::query()->where('status', 100)->where('karyawan', auth()->user()->id)->count())->badgeColor('success'),
                 'ditolak' => Tab::make()
-                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 3))->badge(Cuti::query()->where('status', 3)->where('karyawan', auth()->user()->id)->count())->badgeColor('danger'),
+                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 99)->where('karyawan', auth()->user()->id))->badge(Cuti::query()->where('status', 99)->where('karyawan', auth()->user()->id)->count())->badgeColor('danger'),
             ];
-        } else if (auth()->user()->hasRole('Kepala Bagian') and auth()->user()->hasRole('Verifikator Cuti')) {
+        } else if (auth()->user()->hasRole('Kepala Bagian')) {
             return [
                 'kepala_bagian' => Tab::make()
-                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 5))->where('kepala_bagian', $bagian->id)->badge(Cuti::query()->where('status', 5)->where('kepala_bagian', $bagian->id)->count())->badgeColor('info'),
+                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 2)->where('kepala_bagian', $bagian->id))->badge(Cuti::query()->where('status', 2)->where('kepala_bagian', $bagian->id)->count())->badgeColor('info'),
                 'draft' => Tab::make()
-                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 0))->badge(Cuti::query()->where('status', 0)->where('karyawan', auth()->user()->id)->count())->badgeColor('info'),
+                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 0)->where('karyawan', auth()->user()->id))->badge(Cuti::query()->where('status', 0)->where('karyawan', auth()->user()->id)->count())->badgeColor('info'),
                 'pengajuan' => Tab::make()
-                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 1))->badge(Cuti::query()->where('status', 1)->where('karyawan', auth()->user()->id)->count())->badgeColor('warning'),
+                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 3)->where('karyawan', auth()->user()->id))->badge(Cuti::query()->where('status', 3)->where('karyawan', auth()->user()->id)->count())->badgeColor('warning'),
                 'setujui' => Tab::make()
-                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 2))->badge(Cuti::query()->where('status', 2)->where('karyawan', auth()->user()->id)->count())->badgeColor('success'),
+                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 100)->where('karyawan', auth()->user()->id))->badge(Cuti::query()->where('status', 100)->where('karyawan', auth()->user()->id)->count())->badgeColor('success'),
                 'ditolak' => Tab::make()
-                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 3))->badge(Cuti::query()->where('status', 3)->where('karyawan', auth()->user()->id)->count())->badgeColor('danger'),
+                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 99)->where('karyawan', auth()->user()->id))->badge(Cuti::query()->where('status', 99)->where('karyawan', auth()->user()->id)->count())->badgeColor('danger'),
             ];
         } else if (auth()->user()->hasRole('Verifikator Cuti')) {
             return [
                 'pengajuan' => Tab::make()
-                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 1))->badge(Cuti::query()->where('status', 1)->count())->badgeColor('warning'),
+                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 3))->badge(Cuti::query()->where('status', 3)->count())->badgeColor('warning'),
                 'setujui' => Tab::make()
-                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 2))->badge(Cuti::query()->where('status', 2)->count())->badgeColor('success'),
+                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 100))->badge(Cuti::query()->where('status', 100)->count())->badgeColor('success'),
                 'ditolak' => Tab::make()
-                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 3))->badge(Cuti::query()->where('status', 3)->count())->badgeColor('danger'),
+                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 99))->badge(Cuti::query()->where('status', 99)->count())->badgeColor('danger'),
             ];
         } else {
             return [
                 'draft' => Tab::make()
                     ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 0))->badge(Cuti::query()->where('status', 0)->where('karyawan', auth()->user()->id)->count())->badgeColor('info'),
                 'review kanit' => Tab::make()
-                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 4))->badge(Cuti::query()->where('status', 4)->where('karyawan', auth()->user()->id)->count())->badgeColor('info'),
+                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 1))->badge(Cuti::query()->where('status', 1)->where('karyawan', auth()->user()->id)->count())->badgeColor('info'),
                 'review kabag' => Tab::make()
-                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 5))->badge(Cuti::query()->where('status', 5)->where('karyawan', auth()->user()->id)->count())->badgeColor('info'),
+                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 2))->badge(Cuti::query()->where('status', 2)->where('karyawan', auth()->user()->id)->count())->badgeColor('info'),
                 'pengajuan' => Tab::make()
-                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 1))->badge(Cuti::query()->where('status', 1)->where('karyawan', auth()->user()->id)->count())->badgeColor('warning'),
+                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 3))->badge(Cuti::query()->where('status', 3)->where('karyawan', auth()->user()->id)->count())->badgeColor('warning'),
                 'setujui' => Tab::make()
-                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 2))->badge(Cuti::query()->where('status', 2)->where('karyawan', auth()->user()->id)->count())->badgeColor('success'),
+                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 100))->badge(Cuti::query()->where('status', 100)->where('karyawan', auth()->user()->id)->count())->badgeColor('success'),
                 'ditolak' => Tab::make()
-                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 3))->badge(Cuti::query()->where('status', 3)->where('karyawan', auth()->user()->id)->count())->badgeColor('danger'),
+                    ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 99))->badge(Cuti::query()->where('status', 99)->where('karyawan', auth()->user()->id)->count())->badgeColor('danger'),
             ];
         }
     }

@@ -22,11 +22,11 @@ class CreateCuti extends CreateRecord
         $data['kepala_bagian'] = $bagian->id;
 
         if ($unit->kepala_unit == auth()->user()->id) {
-            $data['status'] = 5;
+            $data['status'] = 2;
         } else if ($bagian->kepala_bagian == auth()->user()->id) {
-            $data['status'] = 1;
+            $data['status'] = 3;
         } else {
-            $data['status'] = 4;
+            $data['status'] = 1;
         }
 
         return $data;
