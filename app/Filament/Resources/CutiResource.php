@@ -63,25 +63,51 @@ class CutiResource extends Resource
             ->actions([
                 ActionGroup::make([
                     Tables\Actions\EditAction::make(),
-                    Action::make('ajukan')->color('primary')->icon('heroicon-o-check-circle')
-                        ->action(
-                            function (Cuti $cuti) {
-                                $cuti->update(['status' => 1]);
-                            }
-                        )->requiresConfirmation()->hidden(fn() => auth()->user()->hasRole('Verifikator Cuti')),
+                    // Action::make('ajukan')->color('primary')->icon('heroicon-o-check-circle')
+                    //     ->action(
+                    //         function (Cuti $cuti) {
+                    //             $cuti->update(['status' => 4]);
+                    //         }
+                    //     )->requiresConfirmation()->hidden(fn() => !auth()->user()->hasRole('Verifikator Cuti')),
                     Action::make('setujui')->color('success')->icon('heroicon-o-check-circle')
                         ->action(
                             function (Cuti $cuti) {
                                 $cuti->update(['status' => 2]);
                             }
-                        )->requiresConfirmation()->hidden(fn(Cuti $cuti) => !auth()->user()->hasRole('Verifikator Cuti')),
+                        )->requiresConfirmation()
+                        ->hidden(
+                            fn(Cuti $cuti) => !auth()->user()->hasRole('Kepala Bagian') or !auth()->user()->hasRole('Kepala Unit')),
                     Action::make('tolak')->color('danger')->icon('heroicon-o-x-circle')
                         ->action(
                             function (Cuti $cuti) {
                                 $cuti->update(['status' => 3]);
                             }
-                        )->requiresConfirmation()->hidden(fn(Cuti $cuti) => !auth()->user()->hasRole('Verifikator Cuti'))
-                ])->hidden(fn(Cuti $cuti) => $cuti->status > 1)
+                        )->requiresConfirmation()->hidden(fn(Cuti $cuti) => !auth()->user()->hasRole('Kepala Bagian') or !auth()->user()->hasRole('Kepala Unit')),
+                    Action::make('setujui v')->color('success')->icon('heroicon-o-check-circle')
+                        ->action(
+                            function (Cuti $cuti) {
+                                $cuti->update(['status' => 5]);
+                            }
+                        )->requiresConfirmation()->hidden(fn(Cuti $cuti) => !auth()->user()->hasRole('Kepala Unit')),
+                    Action::make('setujui')->color('success')->icon('heroicon-o-check-circle')
+                        ->action(
+                            function (Cuti $cuti) {
+                                $cuti->update(['status' => 1]);
+                            }
+                        )->requiresConfirmation()->hidden(fn(Cuti $cuti) => !auth()->user()->hasRole('Kepala Bagian')),
+                    Action::make('tolak')->color('danger')->icon('heroicon-o-x-circle')
+                        ->action(
+                            function (Cuti $cuti) {
+                                $cuti->update(['status' => 3]);
+                            }
+                        )->requiresConfirmation()->hidden(fn(Cuti $cuti) => !auth()->user()->hasRole('Kepala Unit')),
+                    Action::make('tolak')->color('danger')->icon('heroicon-o-x-circle')
+                        ->action(
+                            function (Cuti $cuti) {
+                                $cuti->update(['status' => 3]);
+                            }
+                        )->requiresConfirmation()->hidden(fn(Cuti $cuti) => !auth()->user()->hasRole('Kepala Bagian'))
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

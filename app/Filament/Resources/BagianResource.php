@@ -2,10 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\UnitResource\Pages;
-use App\Filament\Resources\UnitResource\RelationManagers;
+use App\Filament\Resources\BagianResource\Pages;
+use App\Filament\Resources\BagianResource\RelationManagers;
 use App\Models\Bagian;
-use App\Models\Unit;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
@@ -20,13 +19,13 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class UnitResource extends Resource
+class BagianResource extends Resource
 {
-    protected static ?string $model = Unit::class;
+    protected static ?string $model = Bagian::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-building-office';
 
-    protected static ?string $navigationLabel = 'Unit';
+    protected static ?string $navigationLabel = 'Bagian';
 
     protected static ?string $navigationGroup = 'Settings';
 
@@ -35,14 +34,11 @@ class UnitResource extends Resource
         return $form
             ->schema([
                 Card::make()->schema([
-                    TextInput::make('nama_unit')->required()->placeholder('Masukan Nama Unit'),
-                    TextInput::make('kode_unit')->required()->placeholder('Masukan Kode Unit'),
-                    Select::make('kepala_unit')->searchable()->required()->options(
+                    TextInput::make('nama_bagian')->required()->placeholder('Masukan Nama Bagian'),
+                    TextInput::make('kode_bagian')->required()->placeholder('Masukan Kode Bagian'),
+                    Select::make('kepala_bagian')->searchable()->required()->options(
                         User::all()->pluck('name', 'id')
-                    )->columnSpanFull(),
-                    Select::make('bagian')->searchable()->required()->options(
-                        Bagian::all()->pluck('nama_bagian', 'id')
-                    )->columnSpanFull(),
+                        )->columnSpanFull(),
                     FileUpload::make('kop')
                         ->columnSpanFull()
                         ->image()
@@ -58,8 +54,8 @@ class UnitResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('nama_unit')->searchable()->sortable(),
-                TextColumn::make('kode_unit')->searchable()->sortable()->badge(),
+                TextColumn::make('nama_bagian')->searchable()->sortable(),
+                TextColumn::make('kode_bagian')->searchable()->sortable()->badge(),
                 TextColumn::make('kepala.name')->searchable()->sortable(),
             ])
             ->filters([
@@ -85,9 +81,9 @@ class UnitResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListUnits::route('/'),
-            'create' => Pages\CreateUnit::route('/create'),
-            'edit' => Pages\EditUnit::route('/{record}/edit'),
+            'index' => Pages\ListBagians::route('/'),
+            'create' => Pages\CreateBagian::route('/create'),
+            'edit' => Pages\EditBagian::route('/{record}/edit'),
         ];
     }
 }
