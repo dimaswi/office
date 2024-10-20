@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/office');
 });
 
 Route::get('rapat/undangan/{rapat}', UndanganRapatController::class)->name('rapat.undangan');

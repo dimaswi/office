@@ -61,8 +61,8 @@ class OfficePanelProvider extends PanelProvider
                 \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
             ])->plugin(
                 FilamentFullCalendarPlugin::make(),
-                    // ->selectable()
-                    // ->editable(),
+                // ->selectable()
+                // ->editable(),
             )
             ->resources([
                 config('filament-logger.activity_resource')

@@ -20,6 +20,7 @@ class Unit extends Model
         'kode_unit',
         'kepala_unit',
         'kop',
+        'bagian',
     ];
 
     public function kepala(): BelongsTo
@@ -35,5 +36,10 @@ class Unit extends Model
     public function suratKeluar(): HasMany
     {
         return $this->hasMany(Keluar::class);
+    }
+
+    public function bag()
+    {
+        return $this->belongsTo(Bagian::class);
     }
 }
