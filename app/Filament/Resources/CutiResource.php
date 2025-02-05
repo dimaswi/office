@@ -5,10 +5,13 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\CutiResource\Pages;
 use App\Filament\Resources\CutiResource\RelationManagers;
 use App\Models\Cuti;
+use App\Models\Jabatan;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
@@ -20,6 +23,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Blade;
 
 class CutiResource extends Resource
 {
@@ -38,6 +42,9 @@ class CutiResource extends Resource
                 Card::make()->schema([
                     DatePicker::make('tanggal_mulai')->required()->label('Tanggal Mulai'),
                     DatePicker::make('tanggal_selesai')->required()->label('Tanggal Selesai'),
+                    Select::make('jabatan_id')->options(
+                        Jabatan::all()->pluck('nama_jabatan', 'id')
+                    )->searchable()->columnSpanFull(),
                     RichEditor::make('alasan_cuti')->label('Alasan Cuti')->columnSpanFull()
                 ])->columns(2)
             ]);
@@ -109,6 +116,18 @@ class CutiResource extends Resource
                             }
                         )
                 ])->visible(fn(Cuti $cuti) => $cuti->status < 4 and auth()->user()->hasRole('Verifikator Cuti')),
+
+                Action::make('download')
+                ->icon('heroicon-o-document-arrow-down')
+                ->label('Download')
+                ->action(function (Cuti $record) {
+                    return response()->streamDownload(function () use ($record) {
+                        echo Pdf::loadHtml(
+                            Blade::render('cuti.cetak', ['record' => $record])
+                        )->stream();
+                    }, $record->id . '.pdf');
+                }),
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

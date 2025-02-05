@@ -17,6 +17,7 @@ class Cuti extends Model
         'tanggal_mulai',
         'tanggal_selesai',
         'alasan_cuti',
+        'jabatan_id',
         'kepala_unit',
         'kepala_bagian',
         'status'
@@ -35,5 +36,10 @@ class Cuti extends Model
     public function kabag()
     {
         return $this->belongsTo(Bagian::class, 'kepala_bagian', 'id');
+    }
+
+    public function karyawan()
+    {
+        return $this->belongsTo(Jabatan::class);
     }
 }
