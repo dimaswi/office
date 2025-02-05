@@ -28,7 +28,6 @@ class OfficePanelProvider extends PanelProvider
             ->default()
             ->id('office')
             ->path('office')
-            ->spa()
             ->topNavigation()
             ->login(Login::class)
             ->sidebarCollapsibleOnDesktop()
