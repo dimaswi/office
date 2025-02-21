@@ -83,10 +83,10 @@ class Notulen extends Page implements HasForms, HasTable
                 'notulen' => $data['notulen'],
             ]);
 
-            Notification::make()
-                ->title('Berhasil Disimpan!')
-                ->success()
-                ->send();
+            // Notification::make()
+            //     ->title('Berhasil Disimpan!')
+            //     ->success()
+            //     ->send();
 
             $this->form->fill();
         } catch (Halt $exception) {

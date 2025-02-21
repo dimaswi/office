@@ -63,7 +63,6 @@ class DaftarHadirRapats extends Page implements HasForms, HasTable
                     //     $visible = auth()->user()->hasRole('Logistik');
                     //     return $visible;
                     // })
-                    ->requiresConfirmation()
                     ->action(function (UndanganRapat $record, array $data): void {
                         UndanganRapat::where('id', $record->id)->update([
                             'status' => 1

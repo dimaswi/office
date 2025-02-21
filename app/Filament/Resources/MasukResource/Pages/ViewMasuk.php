@@ -37,8 +37,11 @@ class ViewMasuk extends ViewRecord
         if (!empty($check_disposisi)) {
             return [
                 Action::make('PDF')->icon('heroicon-o-document')->label('Lihat')
-                    ->modalContent(fn (Masuk $record): View => view('filament.resources.masuk-resource.actions.pdf', ['record' => $record]))
-                    ->modalSubmitAction(false),
+                    ->action(
+                        function (Masuk $record) {
+                            return Storage::disk('sftp')->download('/'.$record->dokumen_surat);
+                        }
+                    ),
                 Action::make('Tindak Lanjut')->icon('heroicon-o-forward')->color('success')
                     ->form([
                         RichEditor::make('catatan')->required(),
@@ -106,8 +109,11 @@ class ViewMasuk extends ViewRecord
                     }),
                 EditAction::make()->icon('heroicon-o-pencil-square')->color('warning'),
                 Action::make('PDF')->icon('heroicon-o-document')->label('Lihat')
-                    ->modalContent(fn (Masuk $record): View => view('filament.resources.masuk-resource.actions.pdf', ['record' => $record]))
-                    ->modalSubmitAction(false),
+                    ->action(
+                        function (Masuk $record) {
+                            return Storage::disk('sftp')->download('/'.$record->dokumen_surat);
+                        }
+                    )
             ];
         }
     }

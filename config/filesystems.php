@@ -39,7 +39,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => public_path('images'),
-            'url' => env('APP_URL').'/images/',
+            'url' => env('APP_URL') . '/images/',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -54,6 +54,30 @@ return [
             'endpoint' => env('AWS_ENDPOINT'),
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => false,
+        ],
+
+        'ftp' => [
+            'driver' => 'ftp',
+            'host' => env('FTP_HOST'),
+            'username' => env('FTP_USERNAME'),
+            'password' => env('FTP_PASSWORD'),
+
+            // Optional FTP Settings...
+            // 'port' => env('FTP_PORT', 21),
+            // 'root' => env('FTP_ROOT'),
+            // 'passive' => true,
+            // 'ssl' => true,
+            // 'timeout' => 30,
+        ],
+
+        'sftp' => [
+            'driver' => 'sftp',
+            'host' => env('FTP_HOST'),
+            'username' => env('FTP_USERNAME'),
+            'password' => env('FTP_PASSWORD'),
+            'visibility' => 'public',
+            'root' => '/FTP_FOLDER',
+            'permPublic' => 0766
         ],
 
     ],

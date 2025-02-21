@@ -68,7 +68,7 @@ class MasukResource extends Resource
                         TextInput::make('pengirim_surat')->required()->placeholder('Masukan Pengirim Surat'),
                         RichEditor::make('isi_surat')->required()->columnSpanFull(),
                         FileUpload::make('dokumen_surat')->required()
-                            ->disk('public')
+                            ->disk('sftp')
                             ->directory('surat_masuk')
                             ->downloadable()
                             ->columnSpanFull()
