@@ -2,6 +2,9 @@
 # Read more here: https://hub.docker.com/_/php
 FROM php:8.2-fpm
 
+ARG user
+ARG uid
+
 RUN apt-get update
 
 # Install useful tools
@@ -62,10 +65,14 @@ RUN docker-php-ext-install gd
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Copy the existing application directory permissions to the working directory
-COPY --chown=www-data:www-data . /var/www
+RUN useradd -G www-data,root -u $uid -d /home/$user $user
+RUN mkdir -p /home/$user/.composer && \
+    chown -R $user:$user /home/$user
 
-# Change current user to www
-USER www-data
+# Set working directory
+WORKDIR /var/www/html
+
+USER $user
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
