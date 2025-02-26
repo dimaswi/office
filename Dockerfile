@@ -28,6 +28,7 @@ RUN apt-get -y install --fix-missing \
 
 RUN docker-php-ext-install \
     exif \
+    intl \
     pcntl \
     bcmath \
     ctype \
