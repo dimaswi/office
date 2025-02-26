@@ -63,13 +63,13 @@ RUN docker-php-ext-install gd
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Copy the existing application directory permissions to the working directory
-COPY --chown=www-data:www-data . /var/www/html
+COPY --chown=root:root . /var/www/html
 
 # Change current user to www
-USER www-data
+USER root
 
 # Expose port 9000
 EXPOSE 9000
 
-# Ganti user ke www-data
-USER www-data
+# Ganti user ke root
+USER root
