@@ -2,6 +2,10 @@
 # Read more here: https://hub.docker.com/_/php
 FROM php:8.2-fpm
 
+ARG UID
+ARG GID
+
+RUN addgroup -S ${GID} && adduser -S ${UID} -G ${GID}
 
 RUN apt-get update
 
@@ -63,13 +67,11 @@ RUN docker-php-ext-install gd
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Copy the existing application directory permissions to the working directory
-COPY --chown=root:root . /var/www/html
+COPY --chown=www-data:www-data . /var/www/html
 
 # Change current user to www
-USER root
+USER www-data
 
-# Expose port 9000
+# Expose port 9000 and start php-fpm server
 EXPOSE 9000
-
-# Ganti user ke root
-USER root
+CMD ["php-fpm"]
