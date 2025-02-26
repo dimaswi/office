@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 networks:
     webapp:
@@ -7,7 +7,7 @@ networks:
 services:
     nginx:
         image: nginx:stable-alpine
-        container_name: ${APP_NAME}_nginx
+        container_name: office_nginx
         ports:
             - "8000:80"
         links:
@@ -25,7 +25,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        container_name: ${APP_NAME}_php
+        container_name: office_php
         volumes:
             - ./:/var/www/html
         ports:
@@ -35,7 +35,7 @@ services:
 
     postgres:
         image: postgres:17-alpine
-        container_name: ${APP_NAME}_postgres
+        container_name: office_postgres
         restart: unless-stopped
         ports:
             - "5433:5432"
