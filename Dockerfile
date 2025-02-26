@@ -64,10 +64,12 @@ RUN docker-php-ext-install gd
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Copy the existing application directory permissions to the working directory
-RUN useradd -G www-data,root -u $uid -d /home/$user $user
-RUN mkdir -p /home/$user/.composer && \
-    chown -R $user:$user /home/$user
+# Copy project ke dalam container
+COPY . /var/www/html
+
+# Copy directory project permission ke container
+COPY --chown=www-data:www-data . /var/www/html
+RUN chown -R www-data:www-data /var/wwwhtml
 
 # Set working directory
 WORKDIR /var/www/html
