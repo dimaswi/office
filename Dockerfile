@@ -2,11 +2,6 @@
 # Read more here: https://hub.docker.com/_/php
 FROM php:8.2-fpm
 
-ARG UID
-ARG GID
-
-RUN addgroup -S ${GID} && adduser -S ${UID} -G ${GID}
-
 RUN apt-get update
 
 # Install useful tools

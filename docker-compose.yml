@@ -35,9 +35,6 @@ services:
 
     app:
         container_name: office
-        args:
-            - UID=${uid:-www-data}
-            - GID=${gid:-www-data}
         build:
             context: .
             dockerfile: Dockerfile
