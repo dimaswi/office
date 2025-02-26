@@ -62,6 +62,12 @@ RUN docker-php-ext-install gd
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+# Copy the existing application directory permissions to the working directory
+COPY --chown=www-data:www-data . /var/www/html
+
+# Change current user to www
+USER www-data
+
 # Expose port 9000
 EXPOSE 9000
 
