@@ -9,7 +9,7 @@ services:
         image: nginx:alpine
         container_name: nginx
         ports:
-            - "8080:80"
+            - "8099:8099"
         volumes:
             - ./:/var/www/html
             - ./docker/nginx/site.conf:/etc/nginx/conf.d/default.conf:rw
