@@ -14,7 +14,7 @@ services:
             - ./:/var/www/html
             - ./docker/nginx/site.conf:/etc/nginx/conf.d/default.conf:rw
         depends_on:
-            - app
+            - office
             - db
         networks:
             - webapp
@@ -33,8 +33,8 @@ services:
         networks:
             - webapp
 
-    app:
-        container_name: office
+    office:
+        container_name: sistem_e_office
         build:
             context: .
             dockerfile: Dockerfile
