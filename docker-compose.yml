@@ -1,6 +1,6 @@
 version: '3.8'
 networks:
-    webapp:
+    office:
 services:
     nginx_office:
         image: nginx:alpine
@@ -14,7 +14,7 @@ services:
             - office
             - db_office
         networks:
-            - webapp
+            - office
 
     db_office:
         image: postgres
@@ -28,7 +28,7 @@ services:
             POSTGRES_USER: dimas
             POSTGRES_PASSWORD: dimas1950
         networks:
-            - webapp
+            - office
 
     office:
         container_name: office
@@ -41,7 +41,7 @@ services:
             - "9099:9099"
         working_dir: /var/www/html
         networks:
-            - webapp
+            - office
 
     #phpMyAdmin Service
     # phpmyadmin:
