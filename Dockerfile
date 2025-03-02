@@ -62,8 +62,8 @@ COPY . /var/www/html
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Copy directory project permission ke container
-COPY --chown=www-data:www-data . /var/www/html
-RUN chown -R www-data:www-data /var/www/html
+# COPY --chown=www-data:www-data . /var/www/html
+# RUN chown -R www-data:www-data /var/www/html
 
 # Set working directory
 WORKDIR /var/www/html
