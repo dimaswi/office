@@ -56,7 +56,9 @@ RUN apt-get update; \
     docker-php-ext-enable imagick;
 
 # Install composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN wget https://raw.githubusercontent.com/composer/getcomposer.org/1b137f8bf6db3e79a38a5bc45324414a6b1f9df2/web/installer -O - -q | php -- --quiet
+RUN mv composer.phar /usr/local/bin/composer
 
 # Copy project ke dalam container
 COPY . /var/www/html
