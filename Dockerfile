@@ -42,8 +42,12 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install extensions
 RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl ftp
-RUN docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/include/
-RUN docker-php-ext-install gd
+RUN apt-get update && apt-get install -y \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libpng-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd
 
 # Install Imagick PHP
 RUN apt-get update; \
