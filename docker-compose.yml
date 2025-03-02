@@ -4,7 +4,6 @@ networks:
     webapp:
 services:
 
-    # Web Server Service
     nginx:
         image: nginx:alpine
         container_name: nginx
@@ -34,7 +33,7 @@ services:
             - webapp
 
     office:
-        container_name: sistem_e_office
+        container_name: office
         build:
             context: .
             dockerfile: Dockerfile

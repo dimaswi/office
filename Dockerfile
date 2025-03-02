@@ -28,22 +28,6 @@ RUN apt-get -y install --fix-missing \
     libonig-dev \
     libxml2-dev
 
-RUN docker-php-ext-install \
-    exif \
-    intl \
-    pcntl \
-    bcmath \
-    ctype \
-    curl \
-    pcntl \
-    zip
-
-# Install Imagick PHP
-RUN apt-get update; \
-    apt-get install -y libmagickwand-dev; \
-    pecl install imagick; \
-    docker-php-ext-enable imagick;
-
 # Install Postgre PDO
 RUN apt-get install -y libpq-dev \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
@@ -61,6 +45,12 @@ RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl ftp
 RUN docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/include/
 RUN docker-php-ext-install gd
 
+# Install Imagick PHP
+RUN apt-get update; \
+    apt-get install -y libmagickwand-dev; \
+    pecl install imagick; \
+    docker-php-ext-enable imagick;
+
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
@@ -73,6 +63,9 @@ RUN chown -R www-data:www-data /var/www/html
 
 # Set working directory
 WORKDIR /var/www/html
+RUN composer install
+RUN chmod -R 775 storage
+RUN chmod -R ugo+rw storage
 
 USER $user
 
