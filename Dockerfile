@@ -1,6 +1,6 @@
 # PHP-FPM is a FastCGI implementation for PHP.
 # Read more here: https://hub.docker.com/_/php
-FROM php:8.2-fpm
+FROM php:8.3-fpm
 
 ARG user
 ARG uid
@@ -75,5 +75,5 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 USER $user
 
 # Expose port 9000 and start php-fpm server
-EXPOSE 9099
+EXPOSE 9000
 CMD ["php-fpm"]
