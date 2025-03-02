@@ -69,7 +69,7 @@ RUN chown -R www-data:www-data /var/www/html
 
 # Set working directory
 WORKDIR /var/www/html
-RUN composer install
+# RUN composer install
 RUN chmod -R 775 storage
 RUN chmod -R ugo+rw storage
 
