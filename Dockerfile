@@ -58,8 +58,6 @@ RUN apt-get update; \
 # Copy project ke dalam container
 COPY . /var/www/html
 
-# Install composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Copy directory project permission ke container
 # COPY --chown=www-data:www-data . /var/www/html
@@ -67,7 +65,10 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 # Set working directory
 WORKDIR /var/www/html
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN composer install
+RUN php artisan key:generate
+RUN php artisan optimize
 RUN chmod -R 775 storage
 RUN chmod -R ugo+rw storage
 
