@@ -41,7 +41,7 @@ RUN apt-get install -y nodejs
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install extensions
-RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl ftp
+RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl ftp intl
 RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
