@@ -1,9 +1,7 @@
 version: '3.8'
-
 networks:
     webapp:
 services:
-
     nginx:
         image: nginx:alpine
         container_name: nginx
