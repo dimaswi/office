@@ -4,7 +4,7 @@ networks:
 services:
     nginx_office:
         image: nginx:alpine
-        container_name: nginx
+        container_name: nginx_office
         ports:
             - "8099:8099"
         volumes:
