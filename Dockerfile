@@ -1,6 +1,6 @@
 # PHP-FPM is a FastCGI implementation for PHP.
 # Read more here: https://hub.docker.com/_/php
-FROM php:8.3-fpm
+FROM php:8.2-fpm
 
 ARG user
 ARG uid
